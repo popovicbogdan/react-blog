@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const SignedOutLinks = () => {
   return (
-    <ul className="show-desktop hide-desktop" id="nav">
+    <ul className="show-desktop hide-mobile" id="nav">
       <li>
         <NavLink to="/" className="link">
           Articles

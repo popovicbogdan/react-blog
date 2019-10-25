@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getPosts } from "../store/actions/posts.js";
 import { ReactComponent as Snow } from "../static/snowflake.svg";
 import { Link } from "react-router-dom";
+// import Article from "./Article";
 
 export class Articles extends Component {
   state = {
@@ -33,11 +34,6 @@ export class Articles extends Component {
                 <div className="card-body cardtext">
                   {post.text.slice(0, 80)}...
                 </div>
-                {/* <footer>
-                  <a href="/article/:id" className="readmore">
-                    read more...
-                  </a>
-                </footer> */}
               </div>
             </Link>
           </div>

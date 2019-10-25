@@ -2,11 +2,16 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { ReactComponent as Logo } from "../static/Reactasaurus.svg";
 // import { ReactComponent as LogoTwo } from "../static/logo-white.svg";
-// import { ReactComponent as Ham } from "../static/ham.svg";
+import { ReactComponent as Ham } from "../static/ham.svg";
 import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
+import { connect } from "react-redux";
 
-function Header() {
+const Header = props => {
+  const { isAuthenticated } = props;
+
+  const links = isAuthenticated ? <SignedInLinks /> : <SignedOutLinks />;
+
   return (
     <div>
       <header className="wrapper">
@@ -14,23 +19,23 @@ function Header() {
           <Logo className="logoo" />
         </NavLink>
 
-        <navbar className="navi">
-          {/* <a href="#" className="hide-desktop">
+        <div className="navi">
+          <a href="/" className="hide-desktop">
             <Ham className="menu" />
-            {/* <img
-              src="../static/ham.svg"
-              alt="togle-menu"
-              className="menu"
-              id="menu"
-            /> 
-          </a> */}
+          </a>
 
-          <SignedInLinks />
-          <SignedOutLinks />
-        </navbar>
+          {links}
+        </div>
       </header>
     </div>
   );
-}
+};
 
-export default Header;
+const mapStateToProps = state => {
+  console.log(" state : ", state);
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  };
+};
+
+export default connect(mapStateToProps)(Header);

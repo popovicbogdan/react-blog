@@ -2,7 +2,7 @@ import axios from "axios";
 const apiUrl = "http://localhost:8000/api";
 
 const initialHeaders = {
-  "Access-Control-Allow-Origin": "*",
+  // "Access-Control-Allow-Origin": "*",
   "Content-Type": "application/json"
 };
 

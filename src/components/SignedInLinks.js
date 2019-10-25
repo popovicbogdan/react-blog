@@ -1,9 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
+import { logout } from "../store/actions/auth";
 
 const SignedInLinks = () => {
   return (
-    <ul /* className="show-desktop hide-desktop"*/ id="nav">
+    <ul className="show-desktop hide-mobile" id="nav">
       <li>
         <NavLink to="/" className="link">
           Articles
@@ -18,11 +20,14 @@ const SignedInLinks = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="/" className="link">
+        <a href="/" onClick={this.props.logout}>
           Logout
-        </NavLink>
+        </a>
       </li>
     </ul>
   );
 };
-export default SignedInLinks;
+export default connect(
+  null,
+  { logout }
+)(SignedInLinks);
