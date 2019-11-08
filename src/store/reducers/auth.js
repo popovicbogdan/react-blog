@@ -4,7 +4,8 @@ import {
   USER_LOADING,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
-  LOGOUT_SUCCESS
+  LOGOUT_SUCCESS,
+  SIGNUP_SUCCESS
 } from "../actions/types";
 
 const initState = {
@@ -30,6 +31,8 @@ export default function(state = initState, action) {
       };
     case LOGIN_SUCCESS:
       localStorage.setItem("token", action.payload.token);
+      console.log(localStorage);
+
       return {
         ...state,
         ...action.payload,
@@ -47,6 +50,7 @@ export default function(state = initState, action) {
         isLoading: false
       };
     case LOGOUT_SUCCESS:
+      localStorage.removeItem("token");
       return {
         ...state,
         token: null,
@@ -54,6 +58,15 @@ export default function(state = initState, action) {
         isAuthenticated: false,
         isLoading: false
       };
+    case SIGNUP_SUCCESS:
+      localStorage.setItem("token", action.payload.token);
+      return {
+        ...state,
+        ...action.payload,
+        isAuthenticated: true,
+        isLoading: false
+      };
+
     default:
       return state;
   }

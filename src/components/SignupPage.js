@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { register } from "../store/actions/auth";
+import { connect } from "react-redux";
 
 export class SignupPage extends Component {
   state = {
@@ -16,10 +18,18 @@ export class SignupPage extends Component {
   };
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
+    if (this.state.password === this.state.confpassword) {
+      const { username, email, password } = this.state;
+      this.props.register(username, email, password);
+    } else {
+      alert("passwords are not matching please try again");
+    }
   };
   render() {
-    const { username, email, password, confpassword } = this.state;
+    if (this.props.isAuthenticated) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <div className="container">
         <form onSubmit={this.handleSubmit} className="form">
@@ -29,7 +39,6 @@ export class SignupPage extends Component {
               type="text"
               id="username"
               name="username"
-              value={username}
               onChange={this.handleChange}
             />
           </div>
@@ -39,7 +48,6 @@ export class SignupPage extends Component {
               type="email"
               id="email"
               name="email"
-              value={email}
               onChange={this.handleChange}
             />
           </div>
@@ -49,7 +57,6 @@ export class SignupPage extends Component {
               type="password"
               name="password"
               id="password"
-              value={password}
               onChange={this.handleChange}
             />
           </div>
@@ -59,7 +66,6 @@ export class SignupPage extends Component {
               type="password"
               name="confpassword"
               id="confirm-password"
-              value={confpassword}
               onChange={this.handleChange}
             />
           </div>
@@ -76,4 +82,11 @@ export class SignupPage extends Component {
   }
 }
 
-export default SignupPage;
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(
+  mapStateToProps,
+  { register }
+)(SignupPage);

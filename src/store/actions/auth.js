@@ -4,7 +4,8 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  LOGOUT_SUCCESS
+  LOGOUT_SUCCESS,
+  SIGNUP_SUCCESS
 } from "./types";
 import ApiHelper from "./ApiHelper";
 
@@ -13,24 +14,7 @@ export const loadUser = () => (dispatch, getState) => {
   //User loading
   dispatch({ type: USER_LOADING });
 
-  // get token from state
-  const token = getState().auth.token;
-
-  // Headers
-  const config = {
-    headers: {
-      "Content-type": "application/json"
-    }
-  };
-
-  //if token, add to headers config
-  if (token) {
-    console.log(token);
-
-    config.headers["Authorization"] = `Token ${token}`;
-  }
-
-  const d = ApiHelper.get("auth/user", config);
+  const d = ApiHelper.get("user", null, tokenHeaders(getState));
   console.log(d);
 
   if (d) {
@@ -48,7 +32,12 @@ export const login = (username, password) => dispatch => {
   // Request Body
   const body = JSON.stringify({ username, password });
 
-  const d = ApiHelper.post("auth/login", body);
+  //Headers
+  const initHeaders = {
+    "Content-type": "application/json"
+  };
+
+  const d = ApiHelper.post("login", body, initHeaders);
 
   if (d) {
     d.then(resp => {
@@ -61,24 +50,7 @@ export const login = (username, password) => dispatch => {
   }
 };
 export const logout = () => (dispatch, getState) => {
-  // get token from state
-  const token = getState().auth.token;
-
-  // Headers
-  const config = {
-    headers: {
-      "Content-type": "application/json"
-    }
-  };
-
-  //if token, add to headers config
-  if (token) {
-    console.log(token);
-
-    config.headers["Authorization"] = `Token ${token}`;
-  }
-
-  const d = ApiHelper.get("auth/logout", null, config);
+  const d = ApiHelper.post("logout/", null, tokenHeaders(getState));
   console.log(d);
 
   if (d) {
@@ -86,4 +58,43 @@ export const logout = () => (dispatch, getState) => {
       dispatch({ type: LOGOUT_SUCCESS, payload: resp.data });
     }).catch(err => console.log(err));
   }
+};
+
+export const register = (username, email, password) => dispatch => {
+  // Request body
+  const body = JSON.stringify({ username, email, password });
+
+  const initHeaders = {
+    "Content-type": "application/json"
+  };
+
+  const d = ApiHelper.post("register", body, initHeaders);
+
+  if (d) {
+    d.then(resp => {
+      dispatch({
+        type: SIGNUP_SUCCESS,
+        payload: resp.data
+      });
+    }).catch(err => console.log(err));
+  }
+};
+
+// get the headers
+const tokenHeaders = getState => {
+  // get token from state
+  const token = getState().auth.token;
+
+  // Headers
+  const headers = {
+    "Content-type": "application/json"
+  };
+
+  //if token, add to headers
+  if (token) {
+    console.log(token);
+
+    headers["Authorization"] = `Token ${token}`;
+  }
+  return headers;
 };

@@ -35,28 +35,33 @@ export class CreateArticle extends Component {
           onSubmit={this.handleSubmit}
         >
           <div className="input-field">
-            <label>Enter your name please</label>
+            <label htmlFor="author">Enter your name please</label>
             <input
               type="text"
               name="author"
-              id=""
+              id="author"
               value={author}
               onChange={this.handleChange}
             />
           </div>
           <div className="input-field">
-            <label>Enter your title please</label>
+            <label htmlFor="title">Enter your title please</label>
             <input
               type="text"
               name="title"
-              id=""
+              id="title"
               value={title}
               onChange={this.handleChange}
             />
           </div>
           <div className="input-field">
-            <label>Enter the text of your article please</label>
-            <textarea name="text" value={text} onChange={this.handleChange} />
+            <label htmlFor="text">Enter the text of your article please</label>
+            <textarea
+              name="text"
+              id="text"
+              value={text}
+              onChange={this.handleChange}
+            />
           </div>
           <button type="submit">Submit</button>
         </form>

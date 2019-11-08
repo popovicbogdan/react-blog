@@ -1,29 +1,22 @@
 import axios from "axios";
-const apiUrl = "http://localhost:8000/api";
-
-const initialHeaders = {
-  // "Access-Control-Allow-Origin": "*",
-  "Content-Type": "application/json"
-};
-
-const getInitialHeaders = () => Object.assign({}, initialHeaders);
+const apiUrl = "http://localhost:8000/auth";
 
 class ApiHelper {
-  static post(resourceUrl, data) {
+  static post(resourceUrl, data, headers) {
     const url = `${apiUrl}/${resourceUrl}`;
 
     return axios({
       method: "post",
       url,
       data,
-      headers: getInitialHeaders()
+      headers: headers
     });
   }
-  static get(resourceUrl) {
+  static get(resourceUrl, data, headers) {
     const url = `${apiUrl}/${resourceUrl}`;
 
-    return axios.get(url, {
-      headers: getInitialHeaders()
+    return axios.get(url, data, {
+      headers: headers
     });
   }
 }

@@ -1,28 +1,28 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../store/actions/auth";
 
-const SignedInLinks = () => {
+const SignedInLinks = props => {
   return (
     <ul className="show-desktop hide-mobile" id="nav">
       <li>
-        <NavLink to="/" className="link">
+        <Link to="/" className="link">
           Articles
-        </NavLink>
+        </Link>
       </li>
       <li>
-        <NavLink to="/createarticle">Create Article</NavLink>
+        <Link to="/createarticle">Create Article</Link>
       </li>
       <li>
-        <NavLink to="/about" className="link">
+        <Link to="/about" className="link">
           About
-        </NavLink>
+        </Link>
       </li>
       <li>
-        <a href="/" onClick={this.props.logout}>
+        <Link to="/" onClick={props.logout}>
           Logout
-        </a>
+        </Link>
       </li>
     </ul>
   );

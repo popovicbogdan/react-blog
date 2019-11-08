@@ -24,16 +24,14 @@ export class LoginPage extends Component {
       return <Redirect to="/" />;
     }
 
-    const { username, password } = this.state;
     return (
       <div className="container">
         <form onSubmit={this.handleSubmit} className="form">
           <div className="input-field">
-            <label htmlFor="email">Username</label>
+            <label htmlFor="username">Username</label>
             <input
               type="text"
               name="username"
-              value={username}
               id="username"
               onChange={this.handleChange}
             />
@@ -43,7 +41,6 @@ export class LoginPage extends Component {
             <input
               name="password"
               type="password"
-              value={password}
               id="password"
               onChange={this.handleChange}
             />

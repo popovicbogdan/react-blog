@@ -1,29 +1,29 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const SignedOutLinks = () => {
   return (
     <ul className="show-desktop hide-mobile" id="nav">
       <li>
-        <NavLink to="/" className="link">
+        <Link to="/" className="link">
           Articles
-        </NavLink>
+        </Link>
       </li>
 
       <li>
-        <NavLink to="/about" className="link">
+        <Link to="/about" className="link">
           About
-        </NavLink>
+        </Link>
       </li>
       <li>
-        <NavLink to="/login" className="link">
+        <Link to="/login" className="link">
           Login
-        </NavLink>
+        </Link>
       </li>
       <li>
-        <NavLink to="/signup" className="link">
+        <Link to="/signup" className="link">
           Signup
-        </NavLink>
+        </Link>
       </li>
     </ul>
   );
